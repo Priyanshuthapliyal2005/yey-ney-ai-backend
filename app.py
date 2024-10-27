@@ -1,27 +1,17 @@
-from flask import Flask, request, jsonify
-import firebase_setup as fb
+# app.py
+from flask import Flask
+from routes.user_routes import user_routes
+from routes.post_routes import post_routes
+from routes.reaction_routes import reaction_routes
+from routes.moderation_routes import moderation_routes
 
 app = Flask(__name__)
 
-# Initialize Firebase
-fb.initialize_firebase()
+# Register Blueprints
+app.register_blueprint(user_routes)
+app.register_blueprint(post_routes)
+app.register_blueprint(reaction_routes)
+app.register_blueprint(moderation_routes)
 
-@app.route('/signup', methods=['POST'])
-def signup():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-    username = data.get('username')
-    dob = data.get('dob')
-    contact_number = data.get('contact_number')
-    
-    # Construct user data
-    user_data = fb.user_data_structure(email, username, dob, contact_number)
-    
-    # Create user
-    result = fb.create_user(email, password, user_data)
-    
-    return jsonify({"result": result})
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

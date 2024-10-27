@@ -1,6 +1,22 @@
 # tests/test_user.py
-from services.user_service import create_user
+import unittest
+from app import app
 
-def test_create_user():
-    result = create_user("test@example.com", "password123", "testuser", "1990-01-01", "+1234567890")
-    print(result)
+class UserTestCase(unittest.TestCase):
+    def setUp(self):
+        self.app = app.test_client()
+        self.app.testing = True
+
+    def test_register_user(self):
+        response = self.app.post('/users', json={
+            "email": "test@example.com",
+            "password": "test1234",
+            "username": "testuser",
+            "dob": "2000-01-01",
+            "contact_number": "1234567890"
+        })
+        self.assertEqual(response.status_code, 201)
+        self.assertIn(b'User created', response.data)
+
+if __name__ == '__main__':
+    unittest.main()
