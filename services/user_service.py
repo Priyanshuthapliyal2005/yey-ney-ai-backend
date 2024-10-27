@@ -24,20 +24,6 @@ def create_sample_users():
             "username": "SampleUser1",
             "dob": "1990-01-01",
             "contact_number": "1234567890"
-        },
-        {
-            "email": "sample2@example.com",
-            "password": "password123",
-            "username": "SampleUser2",
-            "dob": "1992-02-02",
-            "contact_number": "0987654321"
-        },
-        {
-            "email": "sample3@example.com",
-            "password": "password123",
-            "username": "SampleUser3",
-            "dob": "1994-03-03",
-            "contact_number": "1122334455"
         }
     ]
 
